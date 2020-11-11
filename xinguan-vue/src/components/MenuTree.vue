@@ -13,6 +13,7 @@
             :disabled="item.disabled"
             :index="item.url+''"
             :route="item.url+''"
+            @click="savePath(item.url)"
             :key="item.id"
             style="padding-left: 50px;"
             >
@@ -28,6 +29,14 @@
 export default {
     name: 'MenuTree',
     props: ['menuList'],
+    methods: {
+        // 保存激活路径
+      savePath(path) {
+        window.sessionStorage.setItem("activePath", path);
+        //调用Main.vue的activePath
+        this.activePath = path;
+      },
+    }
 }
 </script>
 

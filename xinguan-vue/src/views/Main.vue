@@ -27,7 +27,6 @@
             <!-- 展开/收起 -->
             <div class="toggle_box" @click="toggleCollapse">|||</div>
             <el-menu
-            default-active="2"
             class="el-menu-vertical-demo"
             @open="handleOpen"
             @close="handleClose"
@@ -35,6 +34,7 @@
             text-color="#fff"
             active-text-color="#ffd04b"
             :collapse="isCollapse"
+            :default-active="activePath"
             :collapse-transition="false"
             :unique-opened="true"
             :router="true">
@@ -57,6 +57,7 @@ export default {
     data(){
         return{
             isCollapse: false,
+            activePath: '',
         MenuList: [
           {
             "id": 1,
@@ -491,7 +492,13 @@ export default {
     methods:{
         toggleCollapse(){
             this.isCollapse = !this.isCollapse;
-        }
+        },
+      handleOpen (key, keyPath) {
+        console.log(key, keyPath)
+      },
+      handleClose (key, keyPath) {
+        console.log(key, keyPath)
+      },
     }
 }
 </script>
