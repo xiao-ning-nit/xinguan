@@ -17,7 +17,7 @@
     </el-form-item>
     <el-form-item prop="verifyCode">
         <div class="verifyCode_box">
-            <el-input v-model="loginForm.verifyCode" placeholder="请输入手机验证码" prefix-icon="el-icon-mobile" class="verifyCode"></el-input>
+            <el-input v-model="loginForm.verifyCode" placeholder="请输入验证码" prefix-icon="el-icon-mobile" class="verifyCode"></el-input>
             <img src="../assets/img/msFXK1.gif" class="verifyCode_img">            
         </div>
 
@@ -58,14 +58,19 @@ export default {
     },
     methods: {
       submitForm(formName) {
-        this.$refs[formName].validate((valid) => {
-          if (valid) {
-            this.$router.push("/main");
-          } else {
-            console.log('error submit!!');
-            return false;
-          }
-        });
+        this.$axios
+          .post('/login', {
+            username: this.loginForm.username,
+            password: this.loginForm.password
+          })
+          .then(successResponse => {
+            if (successResponse.data.code === 200) {
+              this.$router.replace({path: '/main'})
+            }
+          })
+          .catch(failResponse => {
+          })
+      
       },
       resetForm(formName) {
         this.$refs[formName].resetFields();
